@@ -1,3 +1,63 @@
+// import React from 'react'
+
+
+// interface Raw{
+//   id : number;
+//   name : number;
+
+// }
+
+// const componentName = async () => {
+//   const token = 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0YXJpbkBnbWFpbC5jb20iLCJpYXQiOjE3MzYyNjI0NjcsImV4cCI6MTczNjI2NjA2N30.SMHLyVfuCn8ZLl1klzYdJtZALmbB6xhxCpMdKWGsP_Y"
+//   const response = await fetch('http://localhost:3000/product/view/5', {
+//     method: 'GET',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Authorization': token
+//     }
+//   });
+//   // console.log('response', response);
+  
+//   const data = await response.json();
+//   // console.log('data', data);
+  
+//   return (
+//     <div>
+//       <h1>Metrics</h1>
+//       <ul>
+//         {Object.entries(data).map(([key, value]) => (
+//           <li key={key}>
+//             {key}: {JSON.stringify(value)}
+//           </li>
+//         ))}
+//       </ul>
+//       </div>
+
+//   );
+   
+// }
+
+// export default componentName;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import Image from "next/image";
 
 export default function Home() {
