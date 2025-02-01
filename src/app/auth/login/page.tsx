@@ -115,7 +115,7 @@ export default function Login (){
         <div className="my-6 text-center text-sm text-gray-400"> OR </div>
 
         {/*Google Login*/}
-        {/* <div className="flex flex-col space-y-4">
+         <div className="flex flex-col space-y-4">
           <button className="flex items-center justify-center w-full bg-gray-100 py-2 rounded-lg shadow hover:bg-gray-200 transition">
             <img
               src="https://www.svgrepo.com/show/355037/google.svg"
@@ -124,7 +124,7 @@ export default function Login (){
             />
             Login with Google
           </button>
-        </div> */}
+        </div>
 
 
         <div className=" mt-4 text-center text-sm">
