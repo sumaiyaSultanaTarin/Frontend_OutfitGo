@@ -103,7 +103,6 @@ export default function Login (){
               <input type="checkbox" id="remember" className="mr-2 rounded text-blue-500" />
               <label htmlFor="remember" className="ml-2 text-sm text-gray-600">Remember me</label>
             </div>
-            <a href="#" className="text-sm text-blue-500">Forgot password?</a>
           </div>
 
           <button
@@ -113,21 +112,6 @@ export default function Login (){
             Login
           </button>
         </form>
-
-        <div className="my-6 text-center text-sm text-gray-400"> OR </div>
-
-        {/*Google Login*/}
-         <div className="flex flex-col space-y-4">
-          <button className="flex items-center justify-center w-full bg-gray-100 py-2 rounded-lg shadow hover:bg-gray-200 transition">
-            <img
-              src="https://www.svgrepo.com/show/355037/google.svg"
-              alt="Google"
-              className="w-5 h-5 mr-2"
-            />
-            Login with Google
-          </button>
-        </div>
-
 
         <div className=" mt-4 text-center text-sm">
           <span className="text-gray-600">Don't have an account?</span>
