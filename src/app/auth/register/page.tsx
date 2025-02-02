@@ -12,9 +12,15 @@ export default function Register() {
   
     const handleRegister = async (e: { preventDefault: () => void; }) => {
       e.preventDefault();
+      if(!email || !password || !confirmPassword)
+      {
+        alert("All field are required!");
+        return;
+      }
       try {
         const response = await api.post("/auth/register", { email, password, confirmPassword });
         console.log(response.data); 
+        alert("Registration Successful!");
         router.push("/auth/login"); 
       } catch (err : any) {
         setError(err.response?.data?.message || "Registration failed");

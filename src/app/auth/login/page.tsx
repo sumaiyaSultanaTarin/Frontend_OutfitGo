@@ -9,11 +9,13 @@ export default function Login (){
   const [error, setError] = useState(null);
   const router = useRouter();
 
-   const handleLogin = async (e: { preventDefault: () => void; }) => {
+  const handleLogin = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     try {
       const response = await login(email, password);
       localStorage.setItem("token", response.accessToken);
+      alert("Login Successful!");
+
       router.push("/dashboard");
     }
     catch (error : any) {
