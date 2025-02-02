@@ -17,6 +17,10 @@ export default function Product() {
         variantValue: "",
         stockLevel: "",
     }]);
+    const [discount, setDiscount] = useState<number | "">("");
+    const [discountStartDate, setDiscountStartDate] = useState("");
+    const [discountEndDate, setDiscountEndDate] = useState("");
+
     const router = useRouter();
     const [error, setError] = useState(null);
  
@@ -26,14 +30,7 @@ export default function Product() {
         setVariants(updatedVariants);
     };
 
-    const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        if (value === "") {
-            setPrice(""); // Allow clearing the input
-        } else {
-            setPrice(parseFloat(parseFloat(value).toFixed(2))); // Ensure valid decimal format
-        }
-    };
+   
 
     const submitProduct = async (e: FormEvent) => {
         e.preventDefault();
@@ -52,6 +49,8 @@ export default function Product() {
                 vendorId: parseInt(vendorId, 10),
                 variants
             });
+
+          
             console.log(response.data);
             alert("Product added Successfully!");
             router.push("./main");
@@ -146,7 +145,7 @@ export default function Product() {
                                         type="number"
                                         placeholder="Enter product price"
                                         value={price}
-                                        onChange={handlePriceChange}
+                                        onChange={(e) => setPrice(e.target.value ? parseFloat(e.target.value) : "")}
                                         step="0.01"
                                         min="0"
                                         required
