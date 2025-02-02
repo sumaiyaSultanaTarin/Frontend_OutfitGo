@@ -1,27 +1,36 @@
 "use client";
-import dynamic from "next/dynamic";
+import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { FaBars, FaCube, FaChartPie, FaBox, FaLayerGroup, FaCog, FaSignOutAlt, FaHome } from "react-icons/fa";
-
-
-
+import {
+  FaBars,
+  FaCube,
+  FaChartPie,
+  FaBox,
+  FaLayerGroup,
+  FaCog,
+  FaSignOutAlt,
+  FaHome,
+} from "react-icons/fa";
 
 export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const router = useRouter();
+  const pathname = usePathname(); // Get current route
 
   const menuItems = [
-    { name: "Dashboard", icon: <FaHome />, isActive: true },
-    { name: "Products", icon: <FaCube />, isActive: false },
-    { name: "Inventory", icon: <FaChartPie />, isActive: false },
-    { name: "Growth", icon: <FaBox />, isActive: false },
-    { name: "Order Lists", icon: <FaLayerGroup />, isActive: false },
+    { name: "Dashboard", icon: <FaHome />, path: "/dashboard" },
+    { name: "Products", icon: <FaCube />, path: "/product/productList" },
+    { name: "Inventory", icon: <FaChartPie />, path: "/inventory" },
+    { name: "Growth", icon: <FaBox />, path: "/growth" },
+    { name: "Order Lists", icon: <FaLayerGroup />, path: "/orders" },
   ];
 
   return (
     <div
-      className={`flex flex-col bg-teal-900 text-white ${isCollapsed ? "w-16" : "w-64"} h-screen transition-all duration-300`}
+      className={`flex flex-col bg-teal-900 text-white ${
+        isCollapsed ? "w-16" : "w-64"
+      } h-screen transition-all duration-300`}
     >
       {/* Sidebar Header */}
       <div className="flex items-center justify-between px-4 py-4">
@@ -39,12 +48,15 @@ export default function Sidebar() {
         {menuItems.map((item, index) => (
           <button
             key={index}
-            className={`flex items-center gap-4 px-4 py-2 rounded-md transition-colors duration-200 hover:bg-teal-700 focus:outline-none ${
-              item.isActive ? "bg-teal-700" : ""
-            }`}
+            onClick={() => router.push(item.path)}
+            className={`flex items-center gap-4 px-4 py-2 rounded-md transition-colors duration-200 ${
+              pathname === item.path ? "bg-teal-700" : "hover:bg-teal-700"
+            } focus:outline-none`}
           >
             <span className="text-xl">{item.icon}</span>
-            {!isCollapsed && <span className="text-sm font-medium">{item.name}</span>}
+            {!isCollapsed && (
+              <span className="text-sm font-medium">{item.name}</span>
+            )}
           </button>
         ))}
       </nav>

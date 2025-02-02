@@ -1,4 +1,5 @@
 "use client";
+import Dashboard from "@/app/dashboard/page";
 import api from "@/app/utils/axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -126,6 +127,7 @@ export default function Product() {
   }, []);
 
   return (
+    <Dashboard>
     <div className="overflow-x-auto p-4">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold mb-4 text-center">
@@ -254,5 +256,6 @@ export default function Product() {
         </>
       )}
     </div>
+    </Dashboard>
   );
 }
