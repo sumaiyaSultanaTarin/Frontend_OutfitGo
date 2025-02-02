@@ -30,7 +30,7 @@ export default function NavigationBar() {
           onMouseEnter={() => setShowNotifications(true)}
           onMouseLeave={() => setShowNotifications(false)}
         >
-          <button className="relative flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 focus:outline-none">
+          <button className="relative flex items-center justify-center w-10 h-10 rounded-full  hover:bg-gray-100 focus:outline-none">
             <FaBell className="text-gray-600 text-xl" />
             <span className="absolute top-0 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-white text-xs">6</span>
           </button>
@@ -69,7 +69,7 @@ export default function NavigationBar() {
           onMouseEnter={() => setShowLanguageDropdown(true)}
           onMouseLeave={() => setShowLanguageDropdown(false)}
         >
-          <button className="flex items-center gap-2 py-2 px-3 rounded-md bg-gray-100 hover:bg-gray-200 focus:outline-none">
+          <button className="flex items-center gap-2 py-2 px-3 rounded-md  hover:bg-gray-100 focus:outline-none">
             <Image
               src="/bangladesh-flag.png"
               alt="Bangladesh Flag"
@@ -110,7 +110,7 @@ export default function NavigationBar() {
           onMouseEnter={() => setShowProfileDropdown(true)}
           onMouseLeave={() => setShowProfileDropdown(false)}
         >
-          <button className="flex items-center gap-2 py-2 px-3 rounded-md bg-gray-100 hover:bg-gray-200 focus:outline-none">
+          <button className="flex items-center gap-2 py-2 px-3 rounded-m hover:bg-gray-100 focus:outline-none">
             <Image
               src="/profile.jpg"
               alt="Profile Picture"

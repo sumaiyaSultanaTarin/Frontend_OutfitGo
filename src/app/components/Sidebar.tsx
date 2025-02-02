@@ -26,11 +26,13 @@ export default function Sidebar() {
     { name: "Order Lists", icon: <FaLayerGroup />, path: "/orders" },
   ];
 
+  
+
   return (
     <div
       className={`flex flex-col bg-teal-900 text-white ${
         isCollapsed ? "w-16" : "w-64"
-      } h-screen transition-all duration-300`}
+      } max-h-screen transition-all duration-300`}
     >
       {/* Sidebar Header */}
       <div className="flex items-center justify-between px-4 py-4">
@@ -49,9 +51,11 @@ export default function Sidebar() {
           <button
             key={index}
             onClick={() => router.push(item.path)}
-            className={`flex items-center gap-4 px-4 py-2 rounded-md transition-colors duration-200 ${
-              pathname === item.path ? "bg-teal-700" : "hover:bg-teal-700"
-            } focus:outline-none`}
+            className={`flex items-center ${
+                isCollapsed ? "justify-center" : "gap-4"
+              } px-4 py-2 rounded-md transition-colors duration-200 ${
+                pathname === item.path ? "bg-teal-700" : "hover:bg-teal-700"
+              } focus:outline-none`}
           >
             <span className="text-xl">{item.icon}</span>
             {!isCollapsed && (
@@ -63,11 +67,15 @@ export default function Sidebar() {
 
       {/* Footer Options */}
       <div className="mt-auto flex flex-col space-y-2 px-4 py-4">
-        <button className="flex items-center gap-4 px-4 py-2 rounded-md transition-colors duration-200 hover:bg-teal-700 focus:outline-none">
+        <button className={`flex items-center ${
+            isCollapsed ? "justify-center" : "gap-4"
+          } px-4 py-2 rounded-md transition-colors duration-200 hover:bg-teal-700 focus:outline-none`}>
           <FaCog className="text-xl" />
           {!isCollapsed && <span className="text-sm font-medium">Settings</span>}
         </button>
-        <button className="flex items-center gap-4 px-4 py-2 rounded-md transition-colors duration-200 hover:bg-teal-700 focus:outline-none">
+        <button className={`flex items-center ${
+            isCollapsed ? "justify-center" : "gap-4"
+          } px-4 py-2 rounded-md transition-colors duration-200 hover:bg-teal-700 focus:outline-none`}>
           <FaSignOutAlt className="text-xl" />
           {!isCollapsed && <span className="text-sm font-medium">Log Out</span>}
         </button>

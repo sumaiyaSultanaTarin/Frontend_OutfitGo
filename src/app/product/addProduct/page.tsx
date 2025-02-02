@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import api from "../../utils/axios";
 import { useRouter } from "next/navigation";
+import Dashboard from "@/app/dashboard/page";
 
 export default function Product() {
     const [name, setName] = useState("");
@@ -57,6 +58,7 @@ export default function Product() {
     };
 
     return (
+        <Dashboard>
         <section className="bg-gray-100 h-screen flex items-center justify-center">
             <div className="bg-gray-50 rounded-lg shadow-lg w-full max-w-3xl p-8">
                 <div className="flex flex-col items-center mb-8">
@@ -223,5 +225,6 @@ export default function Product() {
             </div>
                 
         </section>
+        </Dashboard>
     );
 }

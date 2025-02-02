@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import api from "../../utils/axios";
+import Dashboard from "@/app/dashboard/page";
 
 export default function ApplyDiscount() {
     const [category, setCategory] = useState("");
@@ -45,6 +46,7 @@ export default function ApplyDiscount() {
     };
 
     return (
+        <Dashboard>
         <div className="p-8">
             <h2 className="text-xl font-semibold mb-4">Apply Discount</h2>
             <div className="space-y-4">
@@ -65,5 +67,6 @@ export default function ApplyDiscount() {
                 </button>
             </div>
         </div>
+        </Dashboard>
     );
 }

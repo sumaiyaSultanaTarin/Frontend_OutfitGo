@@ -3,6 +3,7 @@
 import { useRouter, useParams } from "next/navigation";
 import { useState, useEffect, FormEvent } from "react";
 import api from "../../../utils/axios";
+import Dashboard from "@/app/dashboard/page";
 
 export default function UpdateProduct() {
     const router = useRouter();
@@ -79,6 +80,7 @@ export default function UpdateProduct() {
     };
 
     return (
+        <Dashboard>
         <div className="p-8">
             <h2 className="text-xl font-semibold mb-4">Update Product</h2>
             <form onSubmit={handleUpdate} className="space-y-4">
@@ -159,5 +161,6 @@ export default function UpdateProduct() {
                 </button>
             </form>
         </div>
+        </Dashboard>
     );
 }

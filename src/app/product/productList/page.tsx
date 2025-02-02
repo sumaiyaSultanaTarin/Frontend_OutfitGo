@@ -140,7 +140,7 @@ export default function Product() {
             placeholder="Search Product..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="border p-2 rounded-lg pl-10 w-64"
+            className="border p-2 rounded-2xl pl-10 w-64"
           />
           <button
             onClick={handleSearch}
@@ -169,7 +169,7 @@ export default function Product() {
           </button>
           <button
             onClick={handleDownloadProducts}
-            className="px-4 py-2 bg-gray-500 text-white rounded-lg flex items-center gap-2 hover:bg-gray-600"
+            className="px-4 py-2 bg-gray-600 text-white rounded-lg flex items-center gap-2 hover:bg-gray-700"
           >
             <FiDownload /> Template
           </button>
@@ -234,7 +234,7 @@ export default function Product() {
               ))}
             </tbody>
           </table>
-          <div className="flex justify-center items-center mt-4">
+          <div className="flex justify-end items-center mt-3">
             <button
               onClick={() => handlePage(page - 1)}
               disabled={page === 1}
