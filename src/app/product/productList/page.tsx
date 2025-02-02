@@ -67,6 +67,48 @@ export default function Product() {
     fetchAllProducts(searchQuery, newPage);
   };
 
+  const handleDownloadProducts = async() => {
+    try{
+      let allProducts: Product[] =[];
+      let page =1;
+      let totalPages = 1;
+
+      while(page <= totalPages)
+      {
+        const response = await api.get(`/product/all?page=${page}`); 
+        const fetchedProducts: Product[] = response.data.products || [];
+        if(fetchedProducts.length === 0) break;
+        allProducts = [...allProducts, ...fetchedProducts];
+        totalPages = response.data.totalPages ||1;
+        page++;
+      }
+  
+    if (allProducts.length === 0) {
+      alert("No products available to download.");
+      return;
+    }
+
+    let csvContent = "data:text/csv;charset=utf-8," +
+      "ID,Name,Category,Price,Stock Level,Image URL\n" +
+      allProducts.map((product :Product) => {
+        return `${product.id},${product.name},${product.category},${product.price},${product.stockLevel},${product.imageUrl || "N/A"}`;
+      }).join("\n");
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "product_list.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    }catch(err)
+    {
+      alert("Failed to download product list.");
+    }
+  };
+  
+
+
   const deleteProduct = async (id: number) => {
     if (confirm("Are you sure you want to delete this product?")) {
       try {
@@ -124,7 +166,7 @@ export default function Product() {
             <FiUpload /> Bulk Upload
           </button>
           <button
-            onClick={() => router.push("/product/download")}
+            onClick={handleDownloadProducts}
             className="px-4 py-2 bg-gray-500 text-white rounded-lg flex items-center gap-2 hover:bg-gray-600"
           >
             <FiDownload /> Template
@@ -157,7 +199,7 @@ export default function Product() {
                   <td className="p-4 border">{product.id}</td>
                   <td className="p-4 border text-center">
                     <img
-                      src={product.imageUrl || "/placeholder-image.png"}
+                      src={product.imageUrl}
                       alt={product.name}
                       className="w-12 h-12 object-cover rounded-md"
                     />
