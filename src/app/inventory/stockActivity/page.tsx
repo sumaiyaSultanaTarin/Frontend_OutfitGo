@@ -1,13 +1,22 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { FaPlus, FaFilter, FaArrowLeft, FaTimes } from "react-icons/fa";
+import { FaPlus, FaFilter, FaArrowLeft, FaTimes, FaEdit, FaTrash } from "react-icons/fa";
 import Dashboard from "@/app/dashboard/page";
 import api from "@/app/utils/axios";
 import { useRouter } from "next/navigation";
 
 export default function StockActivity() {
-  const [stockMovements, setStockMovements] = useState([]);
+  interface StockMovement {
+    id: number;
+    product?: { id: number };
+    type: string;
+    quantity: number;
+    notes: string;
+    createdAt: string;
+  }
+  
+  const [stockMovements, setStockMovements] = useState<StockMovement[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [filters, setFilters] = useState({
@@ -78,6 +87,19 @@ export default function StockActivity() {
       alert(err.response?.data?.message || "Failed to log stock movement");
     }
   };
+
+ 
+
+     // Delete stock movement
+   const deleteStockMovement = async (id: number) => {
+    try {
+      await api.delete(`/inventory/stock-movements/${id}`);
+      setStockMovements((prev) => prev.filter((m) => m.id !== id));
+    } catch (err) {
+      console.error("Failed to delete stock movement:", err);
+    }
+  };
+
 
   return (
     <Dashboard>
@@ -152,6 +174,7 @@ export default function StockActivity() {
                 <th className="p-4 border">Quantity</th>
                 <th className="p-4 border">Notes</th>
                 <th className="p-4 border">Date</th>
+                <th className="p-4 border">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -171,6 +194,14 @@ export default function StockActivity() {
                   <td className="p-4 border text-center">{movement.notes}</td>
                   <td className="p-4 border text-center">
                     {new Date(movement.createdAt).toLocaleDateString()}
+                  </td>
+                  <td className="p-4 border text-center">
+                    <button
+                    onClick={() => deleteStockMovement(movement.id)} 
+                    className="px-3 py-1 bg- bg-red-500 text-white rounded-lg hover:bg-red-600 mx-1"
+                    >
+                    <FaTrash/>
+                    </button>
                   </td>
                 </tr>
               ))}
