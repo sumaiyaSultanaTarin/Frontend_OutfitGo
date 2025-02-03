@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
-  CategoryScale, // For the X-axis
-  LinearScale,   // For the Y-axis
-  PointElement,  // For points on the line
-  LineElement,   // For the line itself
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
   Title,
   Tooltip,
   Legend,
@@ -28,29 +28,41 @@ export default function SalesTrends() {
     dailyRevenue: number;
   }
 
-  const [data, setData] = useState(
-    [
-        {
-            "date": "2025-02-02",
-            "dailyRevenue": "10000.00"
-        }
-    ]);
+  const [data, setData] = useState<SalesTrend[]>([
+    {
+      date: "2025-02-02",
+      dailyRevenue: 10000.0,
+    },
+    {
+      date: "2025-02-03",
+      dailyRevenue: 15000.0,
+    },
+    {
+        date: "2025-02-04",
+        dailyRevenue: 12000.0,
+    },
+     {
+        date: "2025-02-05",
+        dailyRevenue: 9000.0,
+    },
+  ]);
 
-    const options = {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: "top" as const,
-          },
-          title: {
-            display: true,
-            text: "Sales Trends (Daily Revenue)",
-          },
-        },
-      };
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false, 
+    plugins: {
+      legend: {
+        position: "top" as const,
+      },
+      title: {
+        display: true,
+        text: "Sales Trends (Daily Revenue)",
+      },
+    },
+  };
 
   const chartData = {
-    labels: data.map((d) => d?.date), 
+    labels: data.map((d) => d?.date),
     datasets: [
       {
         label: "Revenue",
@@ -63,9 +75,9 @@ export default function SalesTrends() {
   };
 
   return (
-    <div className="p-6 bg-white shadow-lg rounded-lg">
-      <h3 className="text-lg font-bold text-gray-600">Sales Trends</h3>
-      <Line data={chartData} options={options}/>
-    </div>
+   
+      <div style={{ width: "100%", height: "200px" }}> {/* Adjust height here */}
+        <Line data={chartData} options={options} />
+      </div>
   );
 }
