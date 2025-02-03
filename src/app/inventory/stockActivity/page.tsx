@@ -236,7 +236,7 @@ export default function StockActivity() {
                   name="type"
                   value={newMovement.type}
                   onChange={handleModalInputChange}
-                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-3 text-gray-400 border rounded-lg focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="">Select Type</option>
                   <option value="inbound">Inbound</option>

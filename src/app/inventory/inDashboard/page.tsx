@@ -49,13 +49,40 @@ export default function InventoryDashboard() {
     }
   };
 
-  const exportCSV = () => {
-    window.location.href = "/inventory/export/csv";
+  const exportCSV = async () => {
+    try {
+      const response = await api.get("/inventory/export/csv", {
+        responseType: "blob",
+      });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "inventory-report.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Error downloading CSV file:", error);
+    }
   };
-
-  const exportPDF = () => {
-    window.location.href = "/inventory/export/pdf";
+  
+  const exportPDF = async () => {
+    try {
+      const response = await api.get("/inventory/export/pdf", {
+        responseType: "blob",
+      });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "inventory-report.pdf");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Error downloading PDF file:", error);
+    }
   };
+  
 
   const handleRowClick = (productId : number | null) => {
     router.push(`/inventory/stockActivity?productId=${productId}`);
