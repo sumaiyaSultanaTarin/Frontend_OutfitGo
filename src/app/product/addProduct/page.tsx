@@ -87,14 +87,15 @@ export default function Product() {
 
   return (
     <Dashboard>
-      <section className="bg-gray-100  flex items-center justify-center">
-        <div className="bg-transparent rounded-lg shadow-lg w-full max-w-5xl p-8">
+      <section className="bg-gray-100 flex items-center justify-center min-h-screen p-8">
+        <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl p-10 border border-gray-200">
           <button
             onClick={() => router.back()}
-            className="mb-4 px-4 py-2 flex items-center gap-2 text-gray-700 font-semibold rounded-lg hover:bg-gray-200"
+            className="mb-6 px-4 py-2 flex items-center gap-2 text-gray-700 font-semibold rounded-lg hover:bg-gray-200 transition"
           >
             <FaArrowLeft />
           </button>
+          <h2 className="text-3xl font-semibold text-center text-blue-600 mb-6">Add New Product</h2>
           <div className="flex flex-col items-center mb-6">
             <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden">
               {imagePreview ? (

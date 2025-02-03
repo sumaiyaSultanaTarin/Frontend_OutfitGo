@@ -128,134 +128,94 @@ export default function Product() {
 
   return (
     <Dashboard>
-    <div className="overflow-x-auto p-4">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold mb-4 text-center">
-          Products List
-        </h2>
-
-        <div className="relative">
-          <input
-            type="text"
-            placeholder="Search Product..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="border p-2 rounded-2xl pl-10 w-64"
-          />
-          <button
-            onClick={handleSearch}
-            className="absolute left-2 top-2 text-gray-500"
-          >
-            <FiSearch size={22} />
-          </button>
-        </div>
-        <button
-          onClick={() => router.push("/product/addProduct")}
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-        >
-          + Create
-        </button>
-        <button
-            onClick={() => router.push("/product/discount")}
-            className="px-4 py-2 bg-yellow-500 text-white rounded-lg flex items-center gap-2 hover:bg-yellow-600"
-          >
-            <FiTag /> Discount
-          </button>
-          <button
-            onClick={() => router.push("/product/bulkupload")}
-            className="px-4 py-2 bg-green-500 text-white rounded-lg flex items-center gap-2 hover:bg-green-600"
-          >
-            <FiUpload /> Bulk Upload
-          </button>
-          <button
-            onClick={handleDownloadProducts}
-            className="px-4 py-2 bg-gray-600 text-white rounded-lg flex items-center gap-2 hover:bg-gray-700"
-          >
-            <FiDownload /> Template
-          </button>
-
-
-      </div>
-
-      {loading ? (
-        <p className="text-center text-blue-600">Loading products...</p>
-      ) : error ? (
-        <p className="text-center text-red-600">{error}</p>
-      ) : (
-        <>
-          <table className="min-w-full border border-gray-300 shadow-md rounded-lg">
-            <thead>
-              <tr className="bg-gray-100">
-                <th className="p-4 border">Product ID</th>
-                <th className="p-4 border">Image</th>
-                <th className="p-4 border">Product Name</th>
-                <th className="p-4 border">Category</th>
-                <th className="p-4 border">Price</th>
-                <th className="p-4 border">Stock Level</th>
-                <th className="p-4 border">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((product: any) => (
-                <tr key={product.id} className="hover:bg-gray-50">
-                  <td className="p-4 border">{product.id}</td>
-                  <td className="p-4 border text-center">
-                    <img
-                      src={product.imageUrl}
-                      alt={product.name}
-                      className="w-12 h-12 object-cover rounded-md"
-                    />
-                  </td>
-                  <td className="p-4 border">{product.name}</td>
-                  <td className="p-4 border">{product.category}</td>
-                  <td className="p-4 border">
-                    ${product.discountedPrice || product.price}
-                  </td>
-                  <td className="p-4 border">{product.stockLevel}</td>
-                  <td className="p-4 border text-center">
-                    <button
-                      onClick={() =>
-                        router.push(`/product/update/${product.id}`)
-                      }
-                      className="text-blue-500 hover:text-blue-700 mr-2"
-                      title="Edit"
-                    >
-                      <FiEdit size={18} />
-                    </button>
-                    <button
-                      onClick={() => deleteProduct(product.id)}
-                      className="text-red-500 hover:text-red-700"
-                      title="Delete"
-                    >
-                      <FiTrash size={18} />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <div className="flex justify-end items-center mt-3">
-            <button
-              onClick={() => handlePage(page - 1)}
-              disabled={page === 1}
-              className="px-4 py-2 mr-2 bg-gray-200 rounded-lg hover:bg-gray-300 disabled:opacity-50"
-            >
-              <FiChevronLeft />
-            </button>
-            <span className="px-4 py-2 text-gray-700">
-              Page {page} of {totalPages}
-            </span>
-            <button
-              onClick={() => handlePage(page + 1)}
-              disabled={page === totalPages}
-              className="px-4 py-2 ml-2 bg-gray-200 rounded-lg hover:bg-gray-300 disabled:opacity-50"
-            >
-              <FiChevronRight />
+    <div className="overflow-x-auto p-6 bg-gray-100 min-h-screen">
+      <div className="bg-white shadow-lg rounded-lg p-6">
+        <div className="flex flex-wrap items-center justify-between mb-6">
+          <h2 className="text-2xl font-semibold text-gray-700">Products List</h2>
+          <div className="relative w-72">
+            <input
+              type="text"
+              placeholder="Search Product..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full border p-3 rounded-full pl-10 text-gray-700 focus:ring-2 focus:ring-blue-500"
+            />
+            <button onClick={handleSearch} className="absolute left-3 top-3 text-gray-500">
+              <FiSearch size={20} />
             </button>
           </div>
-        </>
-      )}
+          <div className="flex gap-3">
+            <button onClick={() => router.push("/product/addProduct")} className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+              + Create
+            </button>
+            <button onClick={() => router.push("/product/discount")} className="px-4 py-2 bg-yellow-500 text-white rounded-lg flex items-center gap-2 hover:bg-yellow-600 transition">
+              <FiTag /> 
+            </button>
+            <button onClick={() => router.push("/product/bulkupload")} className="px-4 py-2 bg-green-500 text-white rounded-lg flex items-center gap-2 hover:bg-green-600 transition">
+              <FiUpload /> 
+            </button>
+            <button onClick={handleDownloadProducts} className="px-4 py-2 bg-gray-600 text-white rounded-lg flex items-center gap-2 hover:bg-gray-700 transition">
+              <FiDownload /> 
+            </button>
+          </div>
+        </div>
+
+        {loading ? (
+          <p className="text-center text-blue-600 font-semibold">Loading products...</p>
+        ) : error ? (
+          <p className="text-center text-red-600 font-semibold">{error}</p>
+        ) : (
+          <div className="overflow-hidden rounded-lg shadow">
+            <table className="w-full border border-gray-300 rounded-lg">
+              <thead className="bg-blue-100 text-blue-900">
+                <tr>
+                  <th className="p-4 border">Product ID</th>
+                  <th className="p-4 border">Image</th>
+                  <th className="p-4 border">Product Name</th>
+                  <th className="p-4 border">Category</th>
+                  <th className="p-4 border">Price</th>
+                  <th className="p-4 border">Stock Level</th>
+                  <th className="p-4 border">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {products.map((product: any) => (
+                  <tr key={product.id} className="hover:bg-gray-50 transition">
+                    <td className="p-4 border text-center">{product.id}</td>
+                    <td className="p-4 border text-center">
+                      <img src={product.imageUrl} alt={product.name} className="w-12 h-12 object-cover rounded-md" />
+                    </td>
+                    <td className="p-4 border text-center">{product.name}</td>
+                    <td className="p-4 border text-center">{product.category}</td>
+                    <td className="p-4 border text-center">${product.discountedPrice || product.price}</td>
+                    <td className="p-4 border text-center">{product.stockLevel}</td>
+                    <td className="p-4 border text-center">
+                      <button onClick={() => router.push(`/product/update/${product.id}`)} className="text-blue-500 hover:text-blue-700 mr-2" title="Edit">
+                        <FiEdit size={18} />
+                      </button>
+                      <button onClick={() => deleteProduct(product.id)} className="text-red-500 hover:text-red-700" title="Delete">
+                        <FiTrash size={18} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        <div className="flex justify-end items-center mt-6">
+          <button onClick={() => handlePage(page - 1)} disabled={page === 1} className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 disabled:opacity-50">
+            <FiChevronLeft />
+          </button>
+          <span className="px-4 py-2 text-gray-700">Page {page} of {totalPages}</span>
+          <button onClick={() => handlePage(page + 1)} disabled={page === totalPages} className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 disabled:opacity-50">
+            <FiChevronRight />
+          </button>
+        </div>
+      </div>
     </div>
     </Dashboard>
   );
+
 }

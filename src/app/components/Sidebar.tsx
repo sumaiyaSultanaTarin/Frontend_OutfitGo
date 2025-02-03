@@ -21,7 +21,7 @@ export default function Sidebar() {
   const menuItems = [
     { name: "Dashboard", icon: <FaHome />, path: "/dashboard" },
     { name: "Products", icon: <FaCube />, path: "/product/productList" },
-    { name: "Inventory", icon: <FaChartPie />, path: "/inventory" },
+    { name: "Inventory", icon: <FaChartPie />, path: "/inventory/restock" },
     { name: "Growth", icon: <FaBox />, path: "/growth" },
     { name: "Order Lists", icon: <FaLayerGroup />, path: "/orders" },
   ];
