@@ -87,7 +87,7 @@ export default function Product() {
 
   return (
     <Layout>
-      <section className="bg-gray-100 flex items-center justify-center min-h-screen p-8">
+      <section className="bg-gray-100 flex items-center justify-center min-h-screen p-2">
         <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl p-10 border border-gray-200">
           <button
             onClick={() => router.back()}

@@ -3,7 +3,7 @@
 import { useRouter, useParams } from "next/navigation";
 import { useState, useEffect, FormEvent } from "react";
 import api from "../../../utils/axios";
-import Dashboard from "@/app/dashboard/page";
+import Layout from "@/app/components/Layout";
 
 export default function UpdateProduct() {
     const router = useRouter();
@@ -79,88 +79,189 @@ export default function UpdateProduct() {
         }
     };
 
-    return (
-        <Dashboard>
-        <div className="p-8">
-            <h2 className="text-xl font-semibold mb-4">Update Product</h2>
-            <form onSubmit={handleUpdate} className="space-y-4">
-                <label htmlFor="name" className="block text-sm font-medium">Product Name</label>
-                <input id="name" type="text" placeholder="Enter product name" value={name} onChange={(e) => setName(e.target.value)} className="w-full p-2 border rounded" required />
+return (
 
-                <label htmlFor="description" className="block text-sm font-medium">Description</label>
-                <input id="description" type="text" placeholder="Enter product description" value={description} onChange={(e) => setDescription(e.target.value)} className="w-full p-2 border rounded" />
-
-                <label htmlFor="price" className="block text-sm font-medium">Price</label>
-                <input id="price" type="number" placeholder="Enter product price" value={price} onChange={(e) => setPrice(e.target.value ? parseFloat(e.target.value) : "")} className="w-full p-2 border rounded" required />
-
-                <label htmlFor="stockLevel" className="block text-sm font-medium">Stock Level</label>
-                <input id="stockLevel" type="number" placeholder="Enter stock level" value={stockLevel} onChange={(e) => setStockLevel(e.target.value)} className="w-full p-2 border rounded" required />
-
-                <label htmlFor="category" className="block text-sm font-medium">Category</label>
-                <input id="category" type="text" placeholder="Enter category" value={category} onChange={(e) => setCategory(e.target.value)} className="w-full p-2 border rounded" required />
-
-                <label htmlFor="imageUrl" className="block text-sm font-medium">Image URL</label>
-                <input id="imageUrl" type="text" placeholder="Enter image URL" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} className="w-full p-2 border rounded" />
-
-                <label htmlFor="vendorId" className="block text-sm font-medium">Vendor ID</label>
-                <input id="vendorId" type="number" placeholder="Enter vendor ID" value={vendorId} onChange={(e) => setVendorId(e.target.value)} className="w-full p-2 border rounded" required />
-
+    <Layout>
+          <div className="flex items-center justify-center min-h-screen bg-gray-100 ">
+            <div className="bg-white rounded-xl shadow-lg w-full max-w-3xl p-8 border border-gray-200">
+              
+              {/* Header */}
+              <h2 className="text-3xl font-bold text-center text-blue-600 mb-6">Update Product</h2>
+      
+              {/* Product Form */}
+              <form onSubmit={handleUpdate} className="space-y-6">
+                {/* Grid Layout for Inputs */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  
+                  {/* Product Name */}
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">Product Name</label>
+                    <input
+                      id="name"
+                      type="text"
+                      placeholder="Enter product name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className="w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
+      
+                  {/* Description */}
+                  <div>
+                    <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description</label>
+                    <input
+                      id="description"
+                      type="text"
+                      placeholder="Enter product description"
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                      className="w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+      
+                  {/* Price */}
+                  <div>
+                    <label htmlFor="price" className="block text-sm font-medium text-gray-700">Price</label>
+                    <input
+                      id="price"
+                      type="number"
+                      placeholder="Enter product price"
+                      value={price}
+                      onChange={(e) => setPrice(e.target.value ? parseFloat(e.target.value) : "")}
+                      className="w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
+      
+                  {/* Stock Level */}
+                  <div>
+                    <label htmlFor="stockLevel" className="block text-sm font-medium text-gray-700">Stock Level</label>
+                    <input
+                      id="stockLevel"
+                      type="number"
+                      placeholder="Enter stock level"
+                      value={stockLevel}
+                      onChange={(e) => setStockLevel(e.target.value)}
+                      className="w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
+      
+                  {/* Category */}
+                  <div>
+                    <label htmlFor="category" className="block text-sm font-medium text-gray-700">Category</label>
+                    <input
+                      id="category"
+                      type="text"
+                      placeholder="Enter category"
+                      value={category}
+                      onChange={(e) => setCategory(e.target.value)}
+                      className="w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
+      
+                  {/* Image URL */}
+                  <div>
+                    <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700">Image URL</label>
+                    <input
+                      id="imageUrl"
+                      type="text"
+                      placeholder="Enter image URL"
+                      value={imageUrl}
+                      onChange={(e) => setImageUrl(e.target.value)}
+                      className="w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+      
+                  {/* Vendor ID */}
+                  <div>
+                    <label htmlFor="vendorId" className="block text-sm font-medium text-gray-700">Vendor ID</label>
+                    <input
+                      id="vendorId"
+                      type="number"
+                      placeholder="Enter vendor ID"
+                      value={vendorId}
+                      onChange={(e) => setVendorId(e.target.value)}
+                      className="w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
+                </div>
+      
                 {/* Variants Section */}
-                <h2 className="text-lg font-semibold mt-4">Variants</h2>
-                {variants.map((variant, index) => (
-                    <div key={index} className="grid grid-cols-3 gap-4 mb-4 border p-4 rounded-lg">
-                        <div>
-                            <label className="block text-sm font-medium">Variant Name</label>
-                            <input
-                                type="text"
-                                placeholder="Enter variant name"
-                                value={variant.variantName}
-                                onChange={(e) => handleVariantChange(index, "variantName", e.target.value)}
-                                className="w-full p-2 border rounded"
-                                required
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium">Variant Value</label>
-                            <input
-                                type="text"
-                                placeholder="Enter variant value"
-                                value={variant.variantValue}
-                                onChange={(e) => handleVariantChange(index, "variantValue", e.target.value)}
-                                className="w-full p-2 border rounded"
-                                required
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium">Stock Level</label>
-                            <input
-                                type="number"
-                                placeholder="Enter stock level"
-                                value={variant.stockLevel}
-                                onChange={(e) => handleVariantChange(index, "stockLevel", e.target.value)}
-                                className="w-full p-2 border rounded"
-                                required
-                            />
-                        </div>
-                        <button
-                            type="button"
-                            onClick={() => removeVariant(index)}
-                            className="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-                        >
-                            Remove
-                        </button>
+                <div className="mt-6">
+                  <h2 className="text-lg font-semibold text-gray-700 mb-3">Variants</h2>
+      
+                  {variants.map((variant, index) => (
+                    <div key={index} className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 border p-4 rounded-lg shadow-sm bg-gray-50">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700">Variant Name</label>
+                        <input
+                          type="text"
+                          placeholder="Enter variant name"
+                          value={variant.variantName}
+                          onChange={(e) => handleVariantChange(index, "variantName", e.target.value)}
+                          className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700">Variant Value</label>
+                        <input
+                          type="text"
+                          placeholder="Enter variant value"
+                          value={variant.variantValue}
+                          onChange={(e) => handleVariantChange(index, "variantValue", e.target.value)}
+                          className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700">Stock Level</label>
+                        <input
+                          type="number"
+                          placeholder="Enter stock level"
+                          value={variant.stockLevel}
+                          onChange={(e) => handleVariantChange(index, "stockLevel", e.target.value)}
+                          className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                          required
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => removeVariant(index)}
+                        className="mt-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+                      >
+                        Remove
+                      </button>
                     </div>
-                ))}
-
-                <button type="button" onClick={addVariant} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                    + Add Variant
+                  ))}
+                </div>
+      
+                {/* Add Variant Button */}
+                <button
+                  type="button"
+                  onClick={addVariant}
+                  className="px-6 py-3 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition"
+                >
+                  + Add Variant
                 </button>
-
-                <button type="submit" className="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+      
+                {/* Form Buttons */}
+                <div className="flex justify-center gap-4 mt-6">
+                  <button
+                    type="submit"
+                    className="px-6 py-3 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition"
+                  >
                     Update
-                </button>
-            </form>
-        </div>
-        </Dashboard>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </Layout>
     );
+      
 }

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import { FaChartLine, FaBox, FaShoppingCart, FaDollarSign } from "react-icons/fa";
 import SalesTrends from "../components/SalesTrends";
-import { getSalesMetrics } from "../utils/performance";
 
 export default function Dashboard() {
   const [metrics, setMetrics] = useState({ totalRevenue: 0, totalUnitsSold: 0 });
@@ -11,7 +10,8 @@ export default function Dashboard() {
   useEffect(() => {
     async function fetchMetrics() {
       try {
-        const data = await getSalesMetrics();
+        const response = await fetch("/api/metrics");
+        const data = await response.json();
         setMetrics(data);
       } catch (error) {
         console.error("Error fetching metrics:", error);
@@ -75,7 +75,7 @@ export default function Dashboard() {
             <div className="flex justify-between items-center mb-2">
               <h3 className="text-md font-semibold text-gray-500">Revenue</h3>
               <button className="px-3 py-1 text-sm bg-gray-200 text-gray-600 rounded hover:bg-gray-300 transition">
-                February
+                December
               </button>
             </div>
             <div className="w-full h-[150px]">
