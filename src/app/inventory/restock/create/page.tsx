@@ -40,7 +40,7 @@ export default function CreateRestockRequest() {
           onClick={() => router.back()}
           className="mb-6 flex items-center gap-2 text-gray-700 hover:text-gray-900"
         >
-          <FaArrowLeft /> Back
+          <FaArrowLeft /> 
         </button>
         <h2 className="text-3xl font-semibold mb-6 text-center text-blue-600">Create Restock Request</h2>
         <form onSubmit={handleSubmit} className="space-y-6">
