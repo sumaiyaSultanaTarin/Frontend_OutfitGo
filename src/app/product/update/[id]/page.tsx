@@ -4,6 +4,7 @@ import { useRouter, useParams } from "next/navigation";
 import { useState, useEffect, FormEvent } from "react";
 import api from "../../../utils/axios";
 import Layout from "@/app/components/Layout";
+import { FaArrowLeft } from "react-icons/fa";
 
 export default function UpdateProduct() {
     const router = useRouter();
@@ -87,6 +88,12 @@ return (
               
               {/* Header */}
               <h2 className="text-3xl font-bold text-center text-blue-600 mb-6">Update Product</h2>
+              <button
+                onClick={() => router.back()}
+                className="mb-6 px-4 py-2 flex items-center gap-2 text-gray-700 font-semibold rounded-lg hover:bg-gray-200 transition"
+               >
+                <FaArrowLeft />
+                </button>
       
               {/* Product Form */}
               <form onSubmit={handleUpdate} className="space-y-6">

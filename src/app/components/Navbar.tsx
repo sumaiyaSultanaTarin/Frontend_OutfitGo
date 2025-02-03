@@ -1,14 +1,24 @@
 import React, { useState } from "react";
-import { FaSearch, FaBell, FaCaretDown } from "react-icons/fa";
+import { FaSearch, FaBell, FaCaretDown, FaSignOutAlt } from "react-icons/fa";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function NavigationBar() {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+  const router = useRouter();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    router.push("/auth/login");
+  };
 
   return (
-    <div className="flex items-center justify-between bg-white px-6 py-3 shadow-md" style={{ height: "67px", width: "1186px" }}>
+    <div
+      className="flex items-center justify-between bg-white px-6 py-3 shadow-md"
+      style={{ height: "67px", width: "1186px" }}
+    >
       {/* Search Bar */}
       <div className="flex items-center w-1/3">
         <div className="relative w-full">
@@ -31,7 +41,9 @@ export default function NavigationBar() {
         >
           <button className="relative flex items-center justify-center w-10 h-10 rounded-full  hover:bg-gray-100 focus:outline-none">
             <FaBell className="text-gray-600 text-xl" />
-            <span className="absolute top-0 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-white text-xs">6</span>
+            <span className="absolute top-0 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-white text-xs">
+              6
+            </span>
           </button>
           {showNotifications && (
             <div
@@ -57,7 +69,9 @@ export default function NavigationBar() {
                   <p className="text-xs text-gray-500">Update your profile</p>
                 </div>
               </button>
-              <button className="w-full mt-4 text-blue-500 text-sm">See all notifications</button>
+              <button className="w-full mt-4 text-blue-500 text-sm">
+                See all notifications
+              </button>
             </div>
           )}
         </div>
@@ -87,14 +101,24 @@ export default function NavigationBar() {
               <h4 className="text-sm font-medium mb-2">Select Language</h4>
               <button className="flex items-center justify-between w-full py-2 px-3 rounded-md hover:bg-gray-100">
                 <div className="flex items-center gap-2">
-                  <Image src="/uk-flag.png" alt="UK Flag" width={20} height={12} />
+                  <Image
+                    src="/uk-flag.png"
+                    alt="UK Flag"
+                    width={20}
+                    height={12}
+                  />
                   <span className="text-sm">English</span>
                 </div>
                 <FaCaretDown className="text-gray-500" />
               </button>
               <button className="flex items-center justify-between w-full py-2 px-3 rounded-md hover:bg-gray-100">
                 <div className="flex items-center gap-2">
-                  <Image src="/bangladesh-flag.png" alt="Bangladesh Flag" width={20} height={12} />
+                  <Image
+                    src="/bangladesh-flag.png"
+                    alt="Bangladesh Flag"
+                    width={20}
+                    height={12}
+                  />
                   <span className="text-sm">Bangladesh</span>
                 </div>
                 <FaCaretDown className="text-gray-500" />
@@ -146,11 +170,11 @@ export default function NavigationBar() {
                 </span>
                 <span className="text-sm">Activity Log</span>
               </button>
-              <button className="flex items-center gap-2 w-full py-2 px-3 rounded-md hover:bg-gray-100">
-                <span className="w-6 h-6 flex items-center justify-center rounded-full bg-red-500 text-white">
-                  <FaCaretDown />
-                </span>
-                <span className="text-sm">Log Out</span>
+              <button
+                onClick={handleLogout}
+                className="w-full px-4 py-2 text-left text-red-600 hover:bg-gray-100 flex items-center gap-2"
+              >
+                <FaSignOutAlt /> Logout
               </button>
             </div>
           )}
