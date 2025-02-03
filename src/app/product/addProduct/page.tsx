@@ -3,8 +3,8 @@
 import { FormEvent, useState } from "react";
 import api from "../../utils/axios";
 import { useRouter } from "next/navigation";
-import Dashboard from "@/app/dashboard/page";
 import { FaArrowLeft, FaPlus, FaTrash } from "react-icons/fa";
+import Layout from "@/app/components/Layout";
 
 export default function Product() {
   const [name, setName] = useState("");
@@ -86,7 +86,7 @@ export default function Product() {
   };
 
   return (
-    <Dashboard>
+    <Layout>
       <section className="bg-gray-100 flex items-center justify-center min-h-screen p-8">
         <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl p-10 border border-gray-200">
           <button
@@ -271,6 +271,6 @@ export default function Product() {
           </form>
         </div>
       </section>
-    </Dashboard>
+    </Layout>
   );
 }

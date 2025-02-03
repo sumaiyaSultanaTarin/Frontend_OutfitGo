@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { FaSearch, FaBell, FaCaretDown } from "react-icons/fa";
-import { IoMdGlobe } from "react-icons/io";
 import Image from "next/image";
 
 export default function NavigationBar() {

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa";
 import Dashboard from "@/app/dashboard/page";
 import api from "@/app/utils/axios";
+import Layout from "@/app/components/Layout";
 
 export default function CreateRestockRequest() {
   const [productId, setProductId] = useState("");
@@ -34,7 +35,7 @@ export default function CreateRestockRequest() {
   };
 
   return (
-    <Dashboard>
+    <Layout>
       <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-8 mt-6 border border-gray-200">
         <button
           onClick={() => router.back()}
@@ -86,6 +87,6 @@ export default function CreateRestockRequest() {
           </div>
         </form>
       </div>
-    </Dashboard>
+    </Layout>
   );
 }

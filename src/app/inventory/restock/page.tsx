@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import api from "../../utils/axios";
 import Dashboard from "@/app/dashboard/page";
 import { FaArrowLeft, FaEdit, FaTimes } from "react-icons/fa";
+import Layout from "@/app/components/Layout";
 
 export default function RestockRequests() {
   const [restockRequests, setRestockRequests] = useState<{id: number, productId: number; requestedQuantity: number; status: string , createdAt : Date}[]>([]);
@@ -61,7 +62,7 @@ export default function RestockRequests() {
   }, []);
 
   return (
-    <Dashboard>
+    <Layout>
       <div className="p-8 bg-gray-50 rounded-lg shadow-md">
         <button
           onClick={() => router.back()}
@@ -170,6 +171,6 @@ export default function RestockRequests() {
     )};
 
       </div>
-    </Dashboard>
+    </Layout>
   );
 }

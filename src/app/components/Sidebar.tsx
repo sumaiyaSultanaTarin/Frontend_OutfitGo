@@ -32,7 +32,7 @@ export default function Sidebar() {
     <div
       className={`flex flex-col bg-teal-900 text-white ${
         isCollapsed ? "w-16" : "w-64"
-      } max-h-screen transition-all duration-300`}
+      } max-h-screen transition-all duration-300 `}
     >
       {/* Sidebar Header */}
       <div className="flex items-center justify-between px-4 py-4">

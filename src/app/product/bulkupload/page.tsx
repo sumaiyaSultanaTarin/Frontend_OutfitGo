@@ -2,10 +2,13 @@
 
 import { useState } from "react";
 import api from "../../utils/axios";
-import Dashboard from "@/app/dashboard/page";
+import Layout from "@/app/components/Layout";
+import { FaArrowLeft } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 export default function BulkUpload() {
     const [file, setFile] = useState<File | null>(null);
+    const router = useRouter();
 
     const handleFileUpload = async () => {
         if (!file) {
@@ -26,12 +29,18 @@ export default function BulkUpload() {
     };
 
     return (
-        <Dashboard>
+        <Layout>
         <section className="flex items-center justify-center min-h-[calc(75vh-64px)] bg-gray-100">
           <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
             <h2 className="text-2xl font-semibold text-black mb-6 text-center">
               Bulk Upload
             </h2>
+            <button
+                    onClick={() => router.back()}
+                      className="mb-6 flex items-center gap-2 text-gray-700 hover:text-gray-900"
+                    >
+                      <FaArrowLeft /> 
+                    </button>
             <div className="space-y-4">
               <label
                 htmlFor="file"
@@ -54,6 +63,6 @@ export default function BulkUpload() {
             </div>
           </div>
         </section>
-      </Dashboard>
+      </Layout>
     );
 }

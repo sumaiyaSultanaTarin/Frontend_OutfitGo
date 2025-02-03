@@ -5,6 +5,7 @@ import { FaPlus, FaFilter, FaArrowLeft, FaTimes, FaEdit, FaTrash } from "react-i
 import Dashboard from "@/app/dashboard/page";
 import api from "@/app/utils/axios";
 import { useRouter } from "next/navigation";
+import Layout from "@/app/components/Layout";
 
 export default function StockActivity() {
   interface StockMovement {
@@ -102,7 +103,7 @@ export default function StockActivity() {
 
 
   return (
-    <Dashboard>
+    <Layout>
       <div className="p-8 bg-gray-50 rounded-lg shadow-md">
          <button
                   onClick={() => router.back()}
@@ -267,6 +268,6 @@ export default function StockActivity() {
           </div>
          )}
       </div>
-    </Dashboard>
+    </Layout>
   );
 }

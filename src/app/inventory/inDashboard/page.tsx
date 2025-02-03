@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaFileCsv, FaFilePdf, FaBox, FaWarehouse, FaExclamationTriangle, FaCartPlus } from "react-icons/fa";
-import Dashboard from "@/app/dashboard/page";
 import api from "@/app/utils/axios";
+import Layout from "@/app/components/Layout";
 
 export default function InventoryDashboard() {
     interface StockActivity {
@@ -66,7 +66,7 @@ export default function InventoryDashboard() {
   };
 
   return (
-    <Dashboard>
+    <Layout>
       <div className="p-6 bg-gray-50 rounded-lg shadow-md">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-semibold text-teal-500 mb-4">
@@ -179,6 +179,6 @@ export default function InventoryDashboard() {
         </div>
 
       </div>
-    </Dashboard>
+    </Layout>
   );
 }

@@ -1,4 +1,5 @@
 "use client";
+import Layout from "@/app/components/Layout";
 import Dashboard from "@/app/dashboard/page";
 import api from "@/app/utils/axios";
 import { useRouter } from "next/navigation";
@@ -127,7 +128,7 @@ export default function Product() {
   }, []);
 
   return (
-    <Dashboard>
+    <Layout>
     <div className="overflow-x-auto p-6 bg-gray-100 min-h-screen">
       <div className="bg-white shadow-lg rounded-lg p-6">
         <div className="flex flex-wrap items-center justify-between mb-6">
@@ -215,7 +216,7 @@ export default function Product() {
         </div>
       </div>
     </div>
-    </Dashboard>
+    </Layout>
   );
 
 }

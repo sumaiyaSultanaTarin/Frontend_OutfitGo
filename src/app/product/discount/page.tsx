@@ -3,6 +3,9 @@
 import { useState } from "react";
 import api from "../../utils/axios";
 import Dashboard from "@/app/dashboard/page";
+import Layout from "@/app/components/Layout";
+import { useRouter } from "next/navigation";
+import { FaArrowLeft } from "react-icons/fa";
 
 export default function ApplyDiscount() {
     const [category, setCategory] = useState("");
@@ -10,6 +13,7 @@ export default function ApplyDiscount() {
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
     const handleApplyDiscount = async () => {
         if (!category || !discount || !startDate || !endDate) {
@@ -46,9 +50,16 @@ export default function ApplyDiscount() {
     };
 
     return (
-        <Dashboard>
+        <Layout>
         <div className="p-8">
+            
             <h2 className="text-xl font-semibold mb-4">Apply Discount</h2>
+            <button
+                      onClick={() => router.back()}
+                      className="mb-6 flex items-center gap-2 text-gray-700 hover:text-gray-900"
+                    >
+                      <FaArrowLeft /> 
+                    </button>
             <div className="space-y-4">
                 <label htmlFor="category" className="block text-sm font-medium">Category</label>
                 <input id="category" type="text" placeholder="Enter category" value={category} onChange={(e) => setCategory(e.target.value)} className="w-full p-2 border rounded" required />
@@ -67,6 +78,6 @@ export default function ApplyDiscount() {
                 </button>
             </div>
         </div>
-        </Dashboard>
+        </Layout>
     );
 }
