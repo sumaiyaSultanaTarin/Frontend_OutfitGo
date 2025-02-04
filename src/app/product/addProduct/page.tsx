@@ -109,12 +109,12 @@ export default function Product() {
   return (
     <Layout>
       <Toaster position="top-right" />
-      <motion.section className="bg-gray-200 flex items-center justify-center min-h-screen p-5"
+      <motion.section className="bg-teal-50 flex items-center justify-center min-h-screen p-5"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
       >
-        <motion.div className="bg-gray-100 rounded-lg shadow-xl w-full max-w-8xl p-6"
+        <motion.div className="bg-white rounded-lg shadow-xl w-full max-w-8xl p-6"
          initial={{ y: -50, opacity: 0 }}
          animate={{ y: 0, opacity: 1 }}
          transition={{ duration: 0.5, delay: 0.2 }}
@@ -128,7 +128,7 @@ export default function Product() {
           <h4 className="text-2xl font-bold text-center text-teal-600 mb-4"
           style={{ fontFamily: "Poppins, sans-serif" }}
           >Add New Product</h4>
-          <div className="flex flex-col items-center mb-4">
+          <div className="flex flex-row items-center justify-center gap-2 mb-4">
             <motion.div className="relative w-20 h-20 rounded-lg border-2 border-dashed border-gray-400 flex items-center justify-center overflow-hidden"
             initial={{ scale: 0.9 }}
             whileHover={{ scale: 1.05 }}
@@ -144,7 +144,6 @@ export default function Product() {
                 <span className="text-gray-500 text-sm">No Image</span>
               )}
             </motion.div>
-            <div className="flex gap-2 mt-4">
               <motion.label
                 htmlFor="imageUpload"
                 className="px-4 py-2 bg-blue-500 text-white rounded-lg cursor-pointer hover:bg-blue-600 flex items-center gap-1"
@@ -164,7 +163,6 @@ export default function Product() {
                   <FiTrash/>
                 </motion.button>
               )}
-            </div>
             <input
               id="imageUpload"
               type="file"
