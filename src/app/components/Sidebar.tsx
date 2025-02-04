@@ -51,10 +51,10 @@ export default function Sidebar() {
           <button
             key={index}
             onClick={() => router.push(item.path)}
-            className={`flex items-center ${
+            className={`relative flex items-center transition-colors duration-200 px-4 py-2 rounded-md focus:outline-none ${
                 isCollapsed ? "justify-center" : "gap-4"
               } px-4 py-2 rounded-md transition-colors duration-200 ${
-                pathname === item.path ? "bg-teal-700" : "hover:bg-teal-700"
+                pathname === item.path ? "bg-teal-700 text-white font-bold" : "hover:bg-teal-700"
               } focus:outline-none`}
           >
             <span className="text-xl">{item.icon}</span>

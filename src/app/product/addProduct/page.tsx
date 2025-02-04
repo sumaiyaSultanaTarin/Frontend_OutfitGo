@@ -79,7 +79,7 @@ export default function Product() {
 
       console.log(response.data);
       alert("Product added Successfully!");
-      router.push("/productList");
+      router.push("/product/productList");
     } catch (err: any) {
       setError(err.response?.data?.message || "Failed to create Product");
     }
