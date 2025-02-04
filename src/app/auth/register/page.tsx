@@ -76,7 +76,7 @@ export default function Register() {
               onChange={(e) => setConfirmPassword(e.target.value)}
               className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all duration-200 ease-in-out"
               required
-            />
+           />
           </div>
 
           <div className="flex items-center">
@@ -84,7 +84,6 @@ export default function Register() {
               type="checkbox"
               id="terms"
               className="w-4 h-4 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
-              required
             />
             <label htmlFor="terms" className="ml-2 text-sm text-gray-600">
               I accept the{" "}

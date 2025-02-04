@@ -5,6 +5,9 @@ import api from "../../utils/axios";
 import { useRouter } from "next/navigation";
 import { FaArrowLeft, FaPlus, FaTrash } from "react-icons/fa";
 import Layout from "@/app/components/Layout";
+import toast, { Toaster } from "react-hot-toast";
+import { FiTrash, FiTrash2, FiUpload } from "react-icons/fi";
+import { motion } from "framer-motion";
 
 export default function Product() {
   const [name, setName] = useState("");
@@ -40,8 +43,11 @@ export default function Product() {
   };
 
   const removeVariant = (index: number) => {
-    const updatedVariants = variants.filter((_, i) => i !== index);
-    setVariants(updatedVariants);
+    if (confirm("Are you sure you want to remove this variant?")) {
+      const updatedVariants = variants.filter((_, i) => i !== index);
+      setVariants(updatedVariants);
+      toast.success("Variant removed successfully.");
+    }
   };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,6 +55,14 @@ export default function Product() {
     if (file) {
       setImageUrl(file);
       setImagePreview(URL.createObjectURL(file));
+    }
+  };
+
+  const removeImage = () => {
+    if (confirm("Are you sure you want to remove the image?")) {
+      setImageUrl(null);
+      setImagePreview(null);
+      toast.success("Image removed successfully.");
     }
   };
 
@@ -62,7 +76,7 @@ export default function Product() {
       !category ||
       !vendorId
     ) {
-      alert("All fields are Required!");
+      toast.error("All fields are Required!");
       return;
     }
     try {
@@ -78,42 +92,79 @@ export default function Product() {
       });
 
       console.log(response.data);
-      alert("Product added Successfully!");
+      toast.success("Product added Successfully!");
       router.push("/product/productList");
     } catch (err: any) {
-      setError(err.response?.data?.message || "Failed to create Product");
+      toast.error(err.response?.data?.message || "Failed to create Product");
     }
   };
 
+  const handleCancel = () => {
+    if (confirm("Are you sure you want to cancel? All unsaved changes will be lost.")) {
+      router.push("/product/productList");
+    }
+  };
+
+
   return (
     <Layout>
-      <section className="bg-gray-100 flex items-center justify-center min-h-screen p-2">
-        <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl p-10 border border-gray-200">
+      <Toaster position="top-right" />
+      <motion.section className="bg-gray-200 flex items-center justify-center min-h-screen p-5"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      >
+        <motion.div className="bg-gray-100 rounded-lg shadow-xl w-full max-w-8xl p-6"
+         initial={{ y: -50, opacity: 0 }}
+         animate={{ y: 0, opacity: 1 }}
+         transition={{ duration: 0.5, delay: 0.2 }}
+        >
           <button
             onClick={() => router.back()}
-            className="mb-6 px-4 py-2 flex items-center gap-2 text-gray-700 font-semibold rounded-lg hover:bg-gray-200 transition"
+            className="mb-2 px-4 py-2 flex items-center gap-2 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition"
           >
             <FaArrowLeft />
           </button>
-          <h2 className="text-3xl font-semibold text-center text-blue-600 mb-6">Add New Product</h2>
-          <div className="flex flex-col items-center mb-6">
-            <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden">
+          <h4 className="text-2xl font-bold text-center text-teal-600 mb-4"
+          style={{ fontFamily: "Poppins, sans-serif" }}
+          >Add New Product</h4>
+          <div className="flex flex-col items-center mb-4">
+            <motion.div className="relative w-20 h-20 rounded-lg border-2 border-dashed border-gray-400 flex items-center justify-center overflow-hidden"
+            initial={{ scale: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300 }}
+            >
               {imagePreview ? (
                 <img
                   src={imagePreview}
                   alt="Preview"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover rounded-lg"
                 />
               ) : (
                 <span className="text-gray-500 text-sm">No Image</span>
               )}
+            </motion.div>
+            <div className="flex gap-2 mt-4">
+              <motion.label
+                htmlFor="imageUpload"
+                className="px-4 py-2 bg-blue-500 text-white rounded-lg cursor-pointer hover:bg-blue-600 flex items-center gap-1"
+                title="Upload Image"
+                whileHover={{ scale: 1.1 }}
+              >
+                <FiUpload/>
+              </motion.label>
+              {imagePreview && (
+                <motion.button
+                  onClick={removeImage}
+                  className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 flex items-center gap-1"
+                  title="Remove Image"
+                  whileHover={{ scale: 1.1 }}
+
+                >
+                  <FiTrash/>
+                </motion.button>
+              )}
             </div>
-            <label
-              htmlFor="imageUpload"
-              className="mt-4 px-2 py-2 bg-blue-400 text-white rounded-lg cursor-pointer hover:bg-blue-600"
-            >
-              Upload Image
-            </label>
             <input
               id="imageUpload"
               type="file"
@@ -123,7 +174,11 @@ export default function Product() {
             />
           </div>
           <form onSubmit={submitProduct} className="space-y-6">
-            <div className="grid grid-cols-2 gap-6">
+            <motion.div className="grid grid-cols-2 gap-6"
+             initial={{ opacity: 0 }}
+             animate={{ opacity: 1 }}
+             transition={{ duration: 0.6, staggerChildren: 0.1 }}
+           >
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-900">
                   Product Name
@@ -204,56 +259,70 @@ export default function Product() {
                   className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
                 />
               </div>
-            </div>
+            </motion.div>
 
             {/* Variants Section */}
- <div className="mt-6">
- <h6 className="text-lg font-medium text-gray-700 mb-2">Variants</h6>
+            <div className="mt-6">
+              <h6 className="text-lg font-medium text-gray-700 mb-2">Variants</h6>
+              {variants.map((variant, index) => (
+                <motion.div key={index} className="flex gap-4 items-center mb-4"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}>
+                  <input
+                    type="text"
+                    placeholder="Variant Name"
+                    value={variant.variantName}
+                    onChange={(e) =>
+                      handleVariantChange(index, "variantName", e.target.value)
+                    }
+                    className="w-1/3 p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Variant Value"
+                    value={variant.variantValue}
+                    onChange={(e) =>
+                      handleVariantChange(index, "variantValue", e.target.value)
+                    }
+                    className="w-1/3 p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                  />
+                  <input
+                    type="number"
+                    placeholder="Stock Level"
+                    value={variant.stockLevel}
+                    onChange={(e) =>
+                      handleVariantChange(index, "stockLevel", e.target.value)
+                    }
+                    className="w-1/3 p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeVariant(index)}
+                    className="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600" 
+                    title="Remove"
+                  >
+                    <FaTrash />
+                  </button>
+                  {index === variants.length - 1 && (
+                    <button
+                      type="button"
+                      onClick={addVariant}
+                      className="px-3 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600"
+                      title="Add"
+                    >
+                      <FaPlus />
+                    </button>
+                  )}
+                </motion.div>
+              ))}
+            </div>
 
-  {variants.map((variant, index) => (
-    <div key={index} className="flex gap-4 items-center mb-4">
-      <input
-        type="text"
-        placeholder="Variant Name"
-        value={variant.variantName}
-        onChange={(e) => handleVariantChange(index, "variantName", e.target.value)}
-        className="w-1/3 p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
-      />
-      <input
-        type="text"
-        placeholder="Variant Value"
-        value={variant.variantValue}
-        onChange={(e) => handleVariantChange(index, "variantValue", e.target.value)}
-        className="w-1/3 p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
-      />
-      <input
-        type="number"
-        placeholder="Stock Level"
-        value={variant.stockLevel}
-        onChange={(e) => handleVariantChange(index, "stockLevel", e.target.value)}
-        className="w-1/3 p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
-      />
-        <button
-          type="button"
-          onClick={() => removeVariant(index)}
-          className="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
-        >
-          <FaTrash/>
-        </button>
-        {index === variants.length - 1 && (
-          <button
-            type="button"
-            onClick={addVariant}
-            className="px-3 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600"
-          >
-            <FaPlus/>
-          </button>
-        )}
-    </div>
-  ))}
-</div>
-
-            <div className="flex justify-center gap-4 mt-6">
+            <motion.div className="flex justify-center gap-4 mt-6"
+             initial={{ opacity: 0, y: 10 }}
+             animate={{ opacity: 1, y: 0 }}
+             transition={{ duration: 0.4 }}
+            >
               <button
                 type="submit"
                 className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
@@ -262,15 +331,15 @@ export default function Product() {
               </button>
               <button
                 type="button"
-                onClick={() => router.push("./productList")}
+                onClick={handleCancel}
                 className="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600"
               >
                 Cancel
               </button>
-            </div>
+            </motion.div>
           </form>
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
     </Layout>
   );
 }

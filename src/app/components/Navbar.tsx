@@ -47,7 +47,7 @@ export default function NavigationBar() {
           </button>
           {showNotifications && (
             <div
-              className="absolute right-0 mt-2 w-[257px] bg-white shadow-lg rounded-lg p-4"
+              className="absolute right-0 z-50 mt-2 w-[257px] bg-white shadow-lg rounded-lg p-4"
               style={{ height: "256px" }}
             >
               <h4 className="text-sm font-medium mb-2">Notifications</h4>
@@ -95,7 +95,7 @@ export default function NavigationBar() {
           </button>
           {showLanguageDropdown && (
             <div
-              className="absolute right-0 mt-2 w-[209px] bg-white shadow-lg rounded-lg p-4"
+              className="absolute right-0 z-50 mt-2 w-[209px] bg-white shadow-lg rounded-lg p-4"
               style={{ height: "154px" }}
             >
               <h4 className="text-sm font-medium mb-2">Select Language</h4>
@@ -149,7 +149,7 @@ export default function NavigationBar() {
           </button>
           {showProfileDropdown && (
             <div
-              className="absolute right-0 mt-2 w-[205px] bg-white shadow-lg rounded-lg p-4"
+              className="absolute right-0 z-50 mt-2 w-[205px] bg-white shadow-lg rounded-lg p-4"
               style={{ height: "175px" }}
             >
               <button className="flex items-center gap-2 w-full py-2 px-3 rounded-md hover:bg-gray-100">
