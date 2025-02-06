@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { login } from "@/app/utils/auth";
+import toast from "react-hot-toast";
 
 export default function Login (){
   const [email, setEmail] = useState("");
@@ -14,7 +15,7 @@ export default function Login (){
     try {
       const response = await login(email, password);
       localStorage.setItem("token", response.accessToken);
-      alert("Login Successful!");
+      toast.success("Login Successful!");
 
       router.push("/dashboard");
     }

@@ -6,6 +6,8 @@ import api from "../../utils/axios";
 import Dashboard from "@/app/dashboard/page";
 import { FaArrowLeft, FaEdit, FaTimes } from "react-icons/fa";
 import Layout from "@/app/components/Layout";
+import toast, { Toaster } from "react-hot-toast";
+import { motion } from "framer-motion";
 
 export default function RestockRequests() {
   const [restockRequests, setRestockRequests] = useState<{id: number, productId: number; requestedQuantity: number; status: string , createdAt : Date}[]>([]);
@@ -23,6 +25,7 @@ export default function RestockRequests() {
       setRestockRequests(response.data || []);
     } catch (err :any ) {
       setError(err.response?.data?.message || "Failed to fetch restock requests");
+      toast.error("Failed to fetch restock requests.");
     } finally {
       setLoading(false);
     }
@@ -40,20 +43,25 @@ export default function RestockRequests() {
   };
 
   const updateRestockStatus = async () => {
-    if (!selectedRequest) return;
+    if (!selectedRequest) 
+      {
+        return;
+      }
+    if (!confirm("Are you sure you want to update this restock request status?")) {
+      return;
+    }
 
     try {
       await api.patch(`/inventory/restock/${selectedRequest.id}`, { status: updatedStatus });
-
       setRestockRequests((prev) =>
         prev.map((request) =>
           request.id === selectedRequest.id ? { ...request, status: updatedStatus } : request
         )
       );
-
+      toast.success("Restock request updated successfully!");
       closeModal();
     } catch (error) {
-      console.error("Failed to update restock request:", error);
+      toast.error("Failed to update restock request:");
     }
   };
 
@@ -63,7 +71,11 @@ export default function RestockRequests() {
 
   return (
     <Layout>
-      <div className="p-8 bg-gray-50 rounded-lg shadow-md">
+      <Toaster position="top-right"/>
+      <motion.div className="p-8 bg-gray-50 rounded-lg shadow-md"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}>
         <button
           onClick={() => router.back()}
           className="mb-4 flex items-center gap-2 text-gray-700 hover:text-gray-900"
@@ -85,7 +97,11 @@ export default function RestockRequests() {
         ) : restockRequests.length === 0 ? (
           <p className="text-center text-gray-500">No restock requests found.</p>
         ) : (
-          <div className="overflow-hidden rounded-lg shadow-lg">
+          <motion.div className="overflow-hidden rounded-lg shadow-lg"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          >
             <table className="w-full border border-gray-200 rounded-lg">
               <thead>
                 <tr className="bg-blue-100 text-blue-900">
@@ -127,10 +143,14 @@ export default function RestockRequests() {
                 ))}
               </tbody>
             </table>
-          </div>
+          </motion.div>
         )}
     {isModalOpen && selectedRequest &&(
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
+        <motion.div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        >
         <div className="bg-white p-6 rounded-lg shadow-lg w-1/3">
           <div className="flex justify-between mb-4">
             <h3 className="text-lg font-semibold">Update Restock Status</h3>
@@ -167,10 +187,10 @@ export default function RestockRequests() {
             Update Status
           </button>
         </div>
-      </div>
+        </motion.div>
     )};
 
-      </div>
+      </motion.div>
     </Layout>
   );
 }

@@ -5,6 +5,8 @@ import { useState, useEffect, FormEvent } from "react";
 import api from "../../../utils/axios";
 import Layout from "@/app/components/Layout";
 import { FaArrowLeft } from "react-icons/fa";
+import toast, { Toaster } from "react-hot-toast";
+import { motion } from "framer-motion";
 
 export default function UpdateProduct() {
     const router = useRouter();
@@ -18,7 +20,9 @@ export default function UpdateProduct() {
     const [price, setPrice] = useState<number | "">("");
     const [stockLevel, setStockLevel] = useState("");
     const [category, setCategory] = useState("");
-    const [imageUrl, setImageUrl] = useState("");
+    const [imageUrl, setImageUrl] = useState<File | null>(null);
+    const [imagePreview, setImagePreview] = useState<string | null>(null);
+    const [imageUrlString, setImageUrlString] = useState<string>("");
     const [vendorId, setVendorId] = useState("");
     const [variants, setVariants] = useState([{ variantName: "", variantValue: "", stockLevel: "" }]);
 
@@ -29,7 +33,7 @@ export default function UpdateProduct() {
                 setName(response.data.name);
                 setDescription(response.data.description);
                 setPrice(response.data.price);
-                setStockLevel(response.data.stockLevel);
+                setImageUrlString(response.data.imageUrl);
                 setCategory(response.data.category);
                 setImageUrl(response.data.imageUrl);
                 setVendorId(response.data.vendorId);
@@ -40,7 +44,7 @@ export default function UpdateProduct() {
                 })) || []);
                 
             } catch (err: any) {
-                console.error(err.response?.data?.message || "Failed to fetch product");
+                toast.error(err.response?.data?.message || "Failed to fetch product");
             }
         };
         fetchProduct();
@@ -66,39 +70,72 @@ export default function UpdateProduct() {
         const updatedVariants = variants.filter((_, i) => i !== index);
         setVariants(updatedVariants);
     };
+    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (file) {
+        setImageUrl(file);
+        setImagePreview(URL.createObjectURL(file));
+      }
+    };
+  
+    const removeImage = () => {
+      if (confirm("Are you sure you want to remove the image?")) {
+        setImageUrl(null);
+        setImagePreview(null);
+      }
+    };
 
     const handleUpdate = async (e: FormEvent) => {
-        e.preventDefault();
-        try {
-            await api.put(`/product/update/${id}`, {
-                name, description, price, stockLevel, category, imageUrl, vendorId, variants,
-            });
-            alert("Product updated successfully!");
-            router.push("/product/productList");
-        } catch (err: any) {
-            console.error(err.response?.data?.message || "Failed to update product");
-        }
-    };
+      e.preventDefault();
+      if (!confirm("Are you sure you want to update this product?")) {
+        return;
+      }
+      try {
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("description", description);
+        formData.append("price", price.toString());
+        formData.append("stockLevel", stockLevel);
+        formData.append("category", category);
+        formData.append("vendorId", vendorId);
+        if (imageUrl) formData.append("image", imageUrl);
+        formData.append("variants", JSON.stringify(variants));
+  
+        await api.put(`/product/update/${id}`, formData);
+        toast.success("Product updated successfully!");
+        router.push("/product/productList");
+      } catch (err: any) {
+        toast.error("Failed to update product.");
+      }
+    }
 
 return (
 
     <Layout>
-          <div className="flex items-center justify-center min-h-screen bg-gray-100 ">
-            <div className="bg-white rounded-xl shadow-lg w-full max-w-3xl p-8 border border-gray-200">
+      <Toaster position = "top-right" />
+          <motion.div className="flex items-center justify-center min-h-screen bg-gray-100 p-6 "
+           initial={{ opacity: 0 }}
+           animate={{ opacity: 1 }}
+           transition={{ duration: 0.5 }}
+           >
+            <motion.div className="bg-white rounded-lg shadow-xl w-full max-w-3xl p-8 "
+           initial={{ scale: 0.9 }}
+           animate={{ scale: 1 }}
+           transition={{ duration: 0.5 }}
+            >
               
               {/* Header */}
-              <h2 className="text-3xl font-bold text-center text-blue-600 mb-6">Update Product</h2>
               <button
                 onClick={() => router.back()}
-                className="mb-6 px-4 py-2 flex items-center gap-2 text-gray-700 font-semibold rounded-lg hover:bg-gray-200 transition"
+                className="mb-6 flex items-center gap-2 text-gray-600 hover:bg-gray-900 transition"
                >
                 <FaArrowLeft />
                 </button>
-      
+                <h2 className="text-3xl font-bold text-center text-blue-600 mb-6">Update Product</h2>
               {/* Product Form */}
               <form onSubmit={handleUpdate} className="space-y-6">
                 {/* Grid Layout for Inputs */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-2 gap-6">
                   
                   {/* Product Name */}
                   <div>
@@ -124,6 +161,7 @@ return (
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
                       className="w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
+                      required
                     />
                   </div>
       
@@ -175,9 +213,8 @@ return (
                     <input
                       id="imageUrl"
                       type="text"
-                      placeholder="Enter image URL"
-                      value={imageUrl}
-                      onChange={(e) => setImageUrl(e.target.value)}
+                      value={imageUrlString ? imageUrlString.toString() : ""}
+                      onChange={(e) => setImageUrlString(e.target.value)}
                       className="w-full p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
@@ -266,9 +303,9 @@ return (
                   </button>
                 </div>
               </form>
-            </div>
-          </div>
-        </Layout>
+            </motion.div>
+          </motion.div>
+    </Layout>
     );
       
 }

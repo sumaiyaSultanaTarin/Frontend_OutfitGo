@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { FaFileCsv, FaFilePdf, FaBox, FaWarehouse, FaExclamationTriangle, FaCartPlus } from "react-icons/fa";
 import api from "@/app/utils/axios";
 import Layout from "@/app/components/Layout";
+import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 
 export default function InventoryDashboard() {
     interface StockActivity {
@@ -45,7 +47,7 @@ export default function InventoryDashboard() {
         product: { id: activity.product?.id || null }
       })));
     } catch (error) {
-      console.error("Error fetching dashboard data:", error);
+      toast.error("Error fetching dashboard data:");
     }
   };
 
@@ -62,7 +64,7 @@ export default function InventoryDashboard() {
       link.click();
       document.body.removeChild(link);
     } catch (error) {
-      console.error("Error downloading CSV file:", error);
+      toast.error("Error downloading CSV file:");
     }
   };
   
@@ -79,7 +81,7 @@ export default function InventoryDashboard() {
       link.click();
       document.body.removeChild(link);
     } catch (error) {
-      console.error("Error downloading PDF file:", error);
+       toast.error("Error downloading PDF file:");
     }
   };
   
@@ -94,8 +96,16 @@ export default function InventoryDashboard() {
 
   return (
     <Layout>
-      <div className="p-6 bg-gray-50 rounded-lg shadow-md">
-      <div className="flex justify-between items-center mb-6">
+      <motion.div className="p-6 bg-gray-50 rounded-lg shadow-md"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      >
+      <motion.div className="flex justify-between items-center mb-6"
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      >
         <h2 className="text-2xl font-semibold text-teal-500 mb-4">
           Welcome to Inventory 
         </h2>
@@ -108,10 +118,14 @@ export default function InventoryDashboard() {
             <FaCartPlus className="w-5 h-5" />
             Restock
         </button>
-        </div>
+        </motion.div>
 
         {/* Metrics Section */}
-        <div className="grid grid-cols-4 gap-8 mb-8">
+        <motion.div className="grid grid-cols-4 gap-8 mb-8"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.7 }}
+        >
           {/* Total Products */}
           <div className="p-6 bg-white shadow-lg rounded-xl flex flex-col justify-between hover:shadow-2xl transition-shadow">
             <h3 className="text-lg font-bold text-gray-500">Total Products</h3>
@@ -174,10 +188,11 @@ export default function InventoryDashboard() {
               </button>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Stock Activity Table */}
-    <h3 className="text-lg font-semibold text-gray-700 mb-4">
+      
+         <h3 className="text-lg font-semibold text-gray-700 mb-4">
           Recent Stock Activity
         </h3>
         <div className="overflow-x-auto border border-gray-300 shadow-md rounded-lg">
@@ -193,19 +208,19 @@ export default function InventoryDashboard() {
             </thead>
             <tbody>
               {stockActivity.map((activity, index) => (
-                <tr key={index} className="hover:bg-gray-50 cursor-pointer" onClick={() => handleRowClick(activity.product?.id)}>
+                <motion.tr key={index} className="hover:bg-gray-50 cursor-pointer" onClick={() => handleRowClick(activity.product?.id)}>
                   <td className="p-4 border text-center">{activity.product?.id || "N/A"}</td>
                   <td className="p-4 border text-center">{activity.type}</td>
                   <td className="p-4 border text-center">{activity.quantity}</td>
                   <td className="p-4 border text-center">{activity.notes || "N/A"}</td>
                   <td className="p-4 border text-center">{new Date(activity.createdAt).toLocaleDateString()}</td>
-                </tr>
+                </motion.tr>
               ))}
             </tbody>
           </table>
         </div>
-
-      </div>
+      
+      </motion.div>
     </Layout>
   );
 }

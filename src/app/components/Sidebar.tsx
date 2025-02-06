@@ -31,7 +31,7 @@ export default function Sidebar() {
   return (
     <div
       className={`flex flex-col bg-teal-900 text-white ${
-        isCollapsed ? "w-16" : "w-64"
+        isCollapsed ? "w-14" : "w-64"
       } h-screen transition-all duration-300 `}
     >
       {/* Sidebar Header */}

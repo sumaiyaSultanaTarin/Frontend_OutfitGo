@@ -43,7 +43,7 @@ export default function SalesTrends() {
     },
      {
         date: "2025-02-05",
-        dailyRevenue: 9000.0,
+        dailyRevenue: 11000.0,
     },
   ]);
 
@@ -76,7 +76,7 @@ export default function SalesTrends() {
 
   return (
    
-      <div style={{ width: "100%", height: "200px" }}> {/* Adjust height here */}
+      <div style={{ width: "100%", height: "150px" }}> {/* Adjust height here */}
         <Line data={chartData} options={options} />
       </div>
   );

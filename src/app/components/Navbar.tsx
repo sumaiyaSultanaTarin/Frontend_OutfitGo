@@ -17,7 +17,7 @@ export default function NavigationBar() {
   return (
     <div
       className="flex items-center justify-between bg-white px-6 py-3 shadow-md"
-      style={{ height: "67px", width: "1186px" }}
+      style={{ height: "67px" }}
     >
       {/* Search Bar */}
       <div className="flex items-center w-1/3">

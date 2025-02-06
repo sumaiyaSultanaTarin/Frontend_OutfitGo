@@ -6,6 +6,8 @@ import Dashboard from "@/app/dashboard/page";
 import api from "@/app/utils/axios";
 import { useRouter } from "next/navigation";
 import Layout from "@/app/components/Layout";
+import toast, { Toaster } from "react-hot-toast";
+import { motion } from "framer-motion";
 
 export default function StockActivity() {
   interface StockMovement {
@@ -43,10 +45,11 @@ export default function StockActivity() {
       const params = {
         ...filters,
       };
-      const response = await api.get("/inventory/stock-movements", { params });
+      const response = await api.get("/inventory/stock-movements", { params: filters });
       setStockMovements(response.data);
     } catch (err: any) {
       setError(err.response?.data?.message || "Failed to fetch stock movements");
+      toast.error("Failed to fetch stock movements");
     } finally {
       setLoading(false);
     }
@@ -93,18 +96,25 @@ export default function StockActivity() {
 
      // Delete stock movement
    const deleteStockMovement = async (id: number) => {
+    if (confirm("Are you sure you want to delete this activity?")) {
     try {
       await api.delete(`/inventory/stock-movements/${id}`);
+      toast.success("Activity deleted successfully!");
       setStockMovements((prev) => prev.filter((m) => m.id !== id));
-    } catch (err) {
-      console.error("Failed to delete stock movement:", err);
+    } catch (err : any) {
+      toast.error("Failed to delete stock movement:", err);
+    }
     }
   };
 
 
   return (
     <Layout>
-      <div className="p-8 bg-gray-50 rounded-lg shadow-md">
+      <Toaster position="top-right" />
+      <motion.div className="p-8 bg-gray-50 rounded-lg shadow-md"
+       initial={{ opacity: 0 }}
+       animate={{ opacity: 1 }}
+       transition={{ duration: 0.5 }}>
          <button
                   onClick={() => router.back()}
                   className="mb-6 flex items-center gap-2 text-gray-700 hover:text-gray-900"
@@ -112,7 +122,7 @@ export default function StockActivity() {
                   <FaArrowLeft /> 
                 </button>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-semibold text-teal-600">
+          <h2 className="text-2xl font-semibold mb-6 text-teal-600">
             Stock Activity
           </h2>
           <button 
@@ -267,7 +277,7 @@ export default function StockActivity() {
             </div>
           </div>
          )}
-      </div>
+      </motion.div>
     </Layout>
   );
 }

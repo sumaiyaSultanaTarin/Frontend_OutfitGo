@@ -2,6 +2,7 @@
 import api from "@/app/utils/axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function Register() {
     const [email, setEmail] = useState("");
@@ -14,13 +15,13 @@ export default function Register() {
       e.preventDefault();
       if(!email || !password || !confirmPassword)
       {
-        alert("All field are required!");
+        toast.error("All field are required!");
         return;
       }
       try {
         const response = await api.post("/auth/register", { email, password, confirmPassword });
         console.log(response.data); 
-        alert("Registration Successful!");
+        toast.success("Registration Successful!");
         router.push("/auth/login"); 
       } catch (err : any) {
         setError(err.response?.data?.message || "Registration failed");
